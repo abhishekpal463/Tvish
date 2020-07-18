@@ -54,7 +54,7 @@ export default class PrivateRoute extends React.Component {
             pathname: '/signin',
             state: {
               from: this.props.location,
-              message: '请您先登录，谢谢！'
+              message: 'Please log in first, thank you! '
             }
           }}
         />

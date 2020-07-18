@@ -23,7 +23,7 @@ function loadAdminInfoFailure(msg) {
 }
 
 function fetchAdminList(adminId, token) {
-  return async (dispatch) => {
+  return async (dispatch) => { 
     try {
       dispatch(loadAdminInfo())
       const res = await adminInfoService.all(adminId, token)

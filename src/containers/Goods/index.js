@@ -252,7 +252,7 @@ export default class Goods extends React.Component {
               onClick={this.handleAddModalShow}
             >
               <span>
-                <Icon type="plus" /> 添加商品
+                < Icon type = "plus" / > Adding goods
               </span>
             </Button>
           </Col>

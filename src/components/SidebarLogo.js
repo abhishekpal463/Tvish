@@ -4,11 +4,19 @@ import {
 } from '../constants';
 import logo from '../assets/images/logo.png';
 
-const SidebarLogo = () => {
+const SidebarLogo = ({theme}) => {
   return (
     <div className="sidebar-logo">
-      <img src={logo} alt="..."/>
-      <h2 className="sidebar-logo-content">{WEBSITE_NAME}</h2>
+      < img style = {
+        {
+          backgroundColor: `${(theme==='dark')?'transparent':'#000'}`
+        }
+      }
+      src = {
+        logo
+      }
+      alt = "..." / >
+      <h2 style={{color:`${(theme==='dark')?'#fff':'#000'}`}} className="sidebar-logo-content">{WEBSITE_NAME}</h2>
     </div>
   )
 }

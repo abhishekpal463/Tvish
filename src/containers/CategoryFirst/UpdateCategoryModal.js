@@ -60,16 +60,16 @@ export default class UpdateCategoryModal extends React.Component {
         token,
         category
       )
-      message.success('修改成功')
+      message.success('Successfully modified')
       this.props.fetchCategories()
       this.props.handleSubmit()
     } catch (err) {
       if (err.message === undefined) {
-        const errorMessage = '服务器出错啦，请耐心等待，麻烦很耐心的等待一年，谢谢'
+        const errorMessage = 'The server went wrong, please wait patiently, thank you'
         this.props.authError(errorMessage)
       }
       if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
+        const errorMessage = 'Your login has expired, please log in again'
         this.props.authError(errorMessage)
       }
       // 修改不成功
@@ -96,9 +96,9 @@ export default class UpdateCategoryModal extends React.Component {
     return (
       <Modal
         visible={visible}
-        title="修改分类信息"
-        okText="修改"
-        cancelText="取消"
+       title = "Edit category information"
+       okText = "Modify"
+       cancelText = "Cancel"
         onCancel={handleCancel}
         onOk={this.handleSubmit}
       >
@@ -110,15 +110,15 @@ export default class UpdateCategoryModal extends React.Component {
               <Input type="text" disabled />
             )}
           </FormItem>
-          <FormItem label="分类名称">
+          < FormItem label = "Category Name" >
             {getFieldDecorator('categoryName', {
               rules: [{
-                required: true,
-                message: '请输入分类名称'
-              }, {
-                max: 10,
-                min: 1,
-                message: '商品名称不能超过10个字符'
+                    required: true,
+                    message: 'Please enter the category name'
+                  }, {
+                    max: 10,
+                    min: 1,
+                    message: 'Product name cannot exceed 10 characters'
               }],
               initialValue: categoryName
             })(

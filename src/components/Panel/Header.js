@@ -5,14 +5,14 @@ import classNames from 'classnames';
 function Header(props) {
   const {
     children,
-    className,
+    classname,
     type,
     prefixCls,
     ...otherProps
   } = props
 
   const classes = classNames(
-    className,
+    classname,
     `${prefixCls}-header`,
     {
       [`${prefixCls}-light`]: type === 'light'

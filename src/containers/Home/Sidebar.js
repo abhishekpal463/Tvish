@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,7 +6,8 @@ import {
   Layout,
   Icon,
   Badge,
-  Menu
+  Menu,
+  Switch
 } from 'antd'
 import SidebarLogo from '@/components/SidebarLogo';
 
@@ -33,7 +34,8 @@ export default class Sidebar extends React.Component {
   }
 
   state = {
-    current: '0'
+    current: '0',
+    theme : 'dark'
   }
 
   handleClick = (e) => {
@@ -42,6 +44,12 @@ export default class Sidebar extends React.Component {
       current: key
     })
   }
+
+    changeTheme = value => {
+      this.setState({
+        theme: value ? 'dark' : 'light',
+      });
+    };
 
   render() {
     const {
@@ -58,10 +66,27 @@ export default class Sidebar extends React.Component {
         trigger={null}
         collapsible
         collapsed={collapsed}
+        style = {
+            {
+              background: `${(this.state.theme==='dark')?'#263238':'#fff'}`
+              }
+              }
       >
-        <SidebarLogo />
+        <SidebarLogo theme={this.state.theme} />
+        < Switch
+        checked = {
+          this.state.theme === 'dark'
+        }
+        onChange = {
+          this.changeTheme
+        }
+        checkedChildren = "Dark"
+        unCheckedChildren = "Light" /
+          >
         <Menu
-          theme="dark"
+          theme = {
+            this.state.theme
+          }
           mode="inline"
           defaultSelectedKeys={["0"]}
           onClick={this.handleClick}
@@ -84,7 +109,8 @@ export default class Sidebar extends React.Component {
               <span>Goods</span>
             </Link>
           </Item>
-          <SubMenu title={<span><Icon type="tags-o" />Category</span>}>
+          < SubMenu title = {
+              <Fragment>< Icon type = "tags-o" / > <span > Category </span></Fragment>}>
             <Item key="3">
               <Link to="/category/first">
                 <span>First</span>
@@ -96,25 +122,25 @@ export default class Sidebar extends React.Component {
               </Link>
             </Item>
           </SubMenu>
-          <SubMenu title={<span><Icon type="profile" />Profile</span>}>
+          <SubMenu title={<Fragment><Icon type="profile" /><span>Profile</span></Fragment>}>
             <Item key="5">
               <Link to="/orders">
                 <span>Orders</span>
               </Link>
             </Item>
             <Item key="6">
-              <Badge count={wait + dispatching}>
+              {/* <Badge count={wait + dispatching}> */}
                 <Link to="/order/dispatch">
                   <span>Dispatch&nbsp;&nbsp;</span>
                 </Link>
-              </Badge>
+              
             </Item>
             <Item key="7">
-              <Badge count={refunding}>
+              {/* <Badge count={refunding}> */}
                 <Link to="/order/refund">
                   <span>Refund&nbsp;&nbsp;</span>
                 </Link>
-              </Badge>
+              {/* </Badge> */}
             </Item>
           </SubMenu>
           <Item key="8">

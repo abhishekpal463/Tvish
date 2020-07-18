@@ -12,6 +12,7 @@ export default class Panel extends React.Component {
   static defaultProps = {
     prefixCls: 'panel'
   }
+  
 
   render() {
     const {

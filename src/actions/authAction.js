@@ -9,6 +9,7 @@ import {
 } from '../constants';
 import * as utils from '../utils';
 import authService from '../services/authService';
+import { signIn, signOut, authOnChange } from '../firebase';
 
 function fetchToken() {
   return {
@@ -32,45 +33,51 @@ function authError(error) {
   }
 }
 
+
 function signin(username, password) {
   return async (dispatch) => {
     try {
       dispatch(fetchToken())
 
-      const res = await authService.post(username, password)
+      // const res = await authService.post(username, password)
 
-      if (res.status === 201 && res.data.code === 100) {
-        console.log(res)
-        const token = res.data.data.token
-        const adminId = res.data.data.userId
+      // if (res.status === 201 && res.data.code === 100) {
+      //   console.log(res)
+      //   const token = res.data.data.token
+      //   const adminId = res.data.data.userId
 
-        utils.setStorage(TOKEN, token)
-        utils.setStorage(ADMIN_ID, adminId)
+      //   utils.setStorage(TOKEN, token)
+      //   utils.setStorage(ADMIN_ID, adminId)
 
-        return dispatch(setCurrentUser({
-          adminId,
-          token
-        }))
-      }
+      //   return dispatch(setCurrentUser({
+      //     adminId,
+      //     token
+      //   }))
+      // }
+     await signIn(username,password);
     } catch (err) {
       if (err.response === undefined) {
         const errorMessage = 'Server error, please try again later'
         return dispatch(authError(errorMessage))
       }
-
-      if (err.response.status === 404 && err.response.data.code === -1001) {
-        const errorMessage = err.response.data.message
-        return dispatch(authError(errorMessage))
-      }
+      return dispatch(authError(err.message));
     }
   }
 }
 
 
 function signout() {
-  return dispatch => {
+  return async dispatch => {
     utils.removeStorage(TOKEN)
+    await signOut();
     dispatch(setCurrentUser({}))
+  }
+}
+function syncLoggedUser(){
+  return async dispatch=>{
+   await authOnChange().then((user) => dispatch(setCurrentUser(user))).catch((error)=>{
+     return dispatch(authError(error.message));
+   })
   }
 }
 
@@ -78,5 +85,6 @@ export {
   setCurrentUser,
   authError,
   signin,
-  signout
+  signout,
+  syncLoggedUser
 }

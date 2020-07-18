@@ -10,19 +10,19 @@ function StatusFilter(props) {
   } = props
 
   let content = ''
-  if (status === 0) {
-    content = '未发货'
-  } else if (status === 1) {
-    content = '配送中'
-  } else if (status === 2) {
-    content = '已完成'
-  } else if (status === 3) {
-    content = '退款中'
-  } else if (status === -1) {
-    content = '退款成功'
-  } else {
-    content = '退款失败'
-  }
+ if (status === 0) {
+   content = 'Unshipped'
+ } else if (status === 1) {
+   content = 'Delivery'
+ } else if (status === 2) {
+   content = 'Completed'
+ } else if (status === 3) {
+   content = 'Refund in progress'
+ } else if (status === -1) {
+   content = 'Refund successful'
+ } else {
+   content = 'Refund failed'
+ }
 
   const classes = classNames(
     className,

@@ -41,20 +41,21 @@ export default class DeleteCategoryModal extends React.Component {
     const categorySecondId = value.categorySecondId
 
     try {
-      await categorySecondService.remove(adminId, token, categorySecondId)
-      message.success("删除成功")
-      this.props.fetchCategories()
-      this.props.handleSubmit()
-    } catch (err) {
-      if (err.response === undefined) {
-        const errorMessage = '服务器出错啦，请耐心等待，麻烦很耐心的等待一年，谢谢'
+   await categorySecondService.remove(adminId, token, categorySecondId)
+   message.success("Delete successfully")
+   this.props.fetchCategories()
+   this.props.handleSubmit()
+   }
+   catch (err) {
+     if (err.response === undefined) {
+       const errorMessage = 'The server has made an error, please be patient, please wait patiently for a year, thank you'
+       this.props.authError(errorMessage)
+     }
+     if (err.response.status === 401) {
+       const errorMessage = 'Your login has expired, please log in again'
         this.props.authError(errorMessage)
       }
-      if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
-        this.props.authError(errorMessage)
-      }
-      // 删除不成功
+      // Unsuccessful deletion
       if (err.response.status === 400 || err.response.status === 404) {
         const errorMessage = err.response.data.message
         message.error(errorMessage)
@@ -73,18 +74,24 @@ export default class DeleteCategoryModal extends React.Component {
 
     return (
       <Modal
-        title={`删除分类`}
-        visible={this.props.visible}
-        okText="确认"
-        cancelText="取消"
-        onOk={this.handleConfirm}
-        onCancel={this.props.handleCancel}
-      >
-        <p>
-          {
-            categoryName ? (
-              '确认要删除分类信息：' + categoryName
-            ) : ''
+       title = {
+         `Delete Category`
+       }
+       visible = {
+         this.props.visible
+       }
+       okText = "Confirm"
+       cancelText = "Cancel"
+       onOk = {
+         this.handleConfirm
+       }
+       onCancel = {
+           this.props.handleCancel
+         } >
+         <p> {
+           categoryName ? (
+             'Confirm to delete category information:' + categoryName
+           ) : ''
           }
         </p>
       </Modal>

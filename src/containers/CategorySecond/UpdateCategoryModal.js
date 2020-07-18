@@ -113,19 +113,20 @@ export default class UpdateCategoryModal extends React.Component {
           imageFile
         }
       )
-      message.success('修改成功')
+      message.success('Modified successfully')
       this.props.fetchCategories()
       this.props.handleSubmit()
-    } catch (err) {
-      if (err.message === undefined) {
-        const errorMessage = '服务器出错啦，请耐心等待，麻烦很耐心的等待一年，谢谢'
-        this.props.authError(errorMessage)
       }
-      if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
-        this.props.authError(errorMessage)
-      }
-      // 修改不成功
+      catch (err) {
+        if (err.message === undefined) {
+          const errorMessage = 'The server has made an error, please be patient, please wait patiently for a year, thank you'
+          this.props.authError(errorMessage)
+        }
+        if (err.response.status === 401) {
+          const errorMessage = 'Your login has expired, please log in again'
+          this.props.authError(errorMessage)
+        }
+        // The modification was unsuccessful
       if (err.response.status === 400 ||err.response.status === 404) {
         const errorMessage = err.response.data.message
         message.error(errorMessage)
@@ -165,9 +166,9 @@ export default class UpdateCategoryModal extends React.Component {
     return (
       <Modal
         visible={visible}
-        title="修改分类信息"
-        okText="修改"
-        cancelText="取消"
+        title = "Edit category information"
+        okText = "Modify"
+        cancelText = "Cancel"
         onCancel={handleCancel}
         onOk={this.handleSubmit}
       >
@@ -179,27 +180,27 @@ export default class UpdateCategoryModal extends React.Component {
               <Input type="text" disabled />
             )}
           </FormItem>
-          <FormItem label="分类名称">
-            {getFieldDecorator('categoryName', {
-              rules: [{
-                required: true,
-                message: '请输入分类名称'
-              }, {
-                max: 10,
-                min: 1,
-                message: '商品名称不能超过10个字符'
-              }],
+          < FormItem label = "category name" > {
+              getFieldDecorator('categoryName', {
+                  rules: [{
+                    required: true,
+                    message: 'Please enter the category name'
+                  }, {
+                    max: 10,
+                    min: 1,
+                    message: 'Product name cannot exceed 10 characters'
+                  }],
               initialValue: categoryName
             })(
               <Input type="text" />
             )}
           </FormItem>
-          <FormItem label="所属一级分类">
-            {getFieldDecorator('categoryFirstId', {
-              initialValue: categoryFirstId,
-              rules: [{
-                required: true,
-                message: '请选择所属一级分类'
+          < FormItem label = "First level classification" > {
+              getFieldDecorator('categoryFirstId', {
+                  initialValue: categoryFirstId,
+                  rules: [{
+                        required: true,
+                        message: 'Please select the first level category'
               }]
             })(
               <CategorySelector
@@ -208,7 +209,7 @@ export default class UpdateCategoryModal extends React.Component {
               />
             )}
           </FormItem>
-          <FormItem label="修改图片">
+          < FormItem label = "Edit picture" >
             {
               getFieldDecorator('image')(
                 <Upload

@@ -37,3 +37,4 @@ export const ORDER_REFUND_SUCCESS = -1;
   * 订单退款失败
   */
 export const ORDER_REFUNDING_FAILURE = -2;
+

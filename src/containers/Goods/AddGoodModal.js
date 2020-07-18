@@ -123,17 +123,18 @@ export default class AddGoodMOdal extends React.Component {
         good.image.file
       )
       serviceEnd()
-      message.success("添加商品成功")
+      message.success("Successfully added product")
       handleSubmit()
-    } catch (err) {
-      serviceEnd()
-      if (err.response === undefined) {
-        const errorMessage = '服务器错误，请稍后再试'
-        authError(errorMessage)
       }
-      if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
-        authError(errorMessage)
+      catch (err) {
+        serviceEnd()
+        if (err.response === undefined) {
+          const errorMessage = 'Server error, please try again later'
+          authError(errorMessage)
+        }
+        if (err.response.status === 401) {
+          const errorMessage = 'Your login has expired, please log in again'
+          authError(errorMessage)
       }
       if (err.response.status === 400) {
         const errorMessage = err.response.data.message
@@ -147,17 +148,17 @@ export default class AddGoodMOdal extends React.Component {
       <Button type={this.state.uploaded ? "primary" : "dashed"}>
         <Icon type={this.props.inService ? 'loading':'plus'} />
         {this.state.uploaded ? (
-          '上传成功'
-        ) : (
-          '上传图片'
-        )}
+        'Upload successful'): (
+          'upload image'
+        )
+        }
       </Button>
     )
   }
 
   priceValidator = (rule, value, callback) => {
     if (value <= 0) {
-      callback('价格必须大于0')
+     callback('Price must be greater than 0')
     }
     callback()
   }
@@ -176,104 +177,110 @@ export default class AddGoodMOdal extends React.Component {
     return (
       <Modal
         visible={visible}
-        title="新增商品"
-        okText="保存"
-        cancelText="取消"
-        onCancel={handleCancel}
-        onOk={this.handleSubmit}
-      >
-        <Form layout="vertical">
-          <FormItem label="商品名称:">
-            {getFieldDecorator('goodName', {
+        title = "New product"
+        okText = "Save"
+        cancelText = "Cancel"
+        onCancel = {
+          handleCancel
+        }
+        onOk = {
+            this.handleSubmit
+          }
+          >
+          <Form layout = "vertical" >
+              <FormItem label = "commodity name:"> {
+                getFieldDecorator('goodName', {
+                  rules: [{
+                    required: true,
+                    message: 'Please enter the product name'
+                  }, {
+                    max: 20,
+                    min: 1,
+                    message: 'Product name cannot exceed 20 characters'
+                  }]
+                })( <Input type = "text" />
+                )
+              } 
+              </FormItem>
+              <FormItem label = "Product category:" > {
+                getFieldDecorator('categorySecondId', {
+                  rules: [{
+                    required: true,
+                    message: 'Please select product category'
+                  }]
+                })( <CategorySelector />
+                )
+              } 
+              </FormItem> 
+              <FormItem label = "Picture:" > {
+                getFieldDecorator('image', {
+                  rules: [{
+                    required: true,
+                    message: 'Please upload product images'
+                  }]
+                })( <Upload name = "image"
+                  listType = "picture"
+                  className = "avatar-uploader"
+                  showUploadList = {
+                    false
+                  }
+                  beforeUpload = {
+                    this.beforeUpload
+                  }>
+                  {
+                    imageUrl ? <img src = {
+                      imageUrl
+                    }
+                    alt = "" /> : uploadButton
+                  } </Upload>
+                )
+              } </FormItem>
+              < FormItem label = "Current Price:" > {
+                getFieldDecorator('price', {
+                  rules: [{
+                    required: true,
+                    message: 'Please enter the product price'
+                  }, {
+                    max: 10,
+                    message: 'Price cannot exceed ten digits'
+                  }, {
+                    validator: this.priceValidator
+                  }]
+                })( <Input type = "number" />
+                )
+              } </FormItem>
+              <FormItem label = "original price:" > {
+                getFieldDecorator('originalPrice', {
+                  rules: [{
+                    max: 10,
+                    message: 'Price cannot exceed ten digits'
+                  }, {
+                    validator: this.priceValidator
+                  }]
+                })( <Input type = "number" />
+                )
+              } </FormItem>
+              <FormItem label = "Specifications:" > {
+                getFieldDecorator('spec', {
+                  rules: [{
+                    required: true,
+                    message: 'Please enter the product specifications'
+                  }]
+                })( <Input />
+                )
+              } </FormItem> 
+              <FormItem label = "Place of Origin:" > {
+            getFieldDecorator('origin', {
               rules: [{
                 required: true,
-                message: '请输入商品名称'
-              }, {
-                max: 20,
-                min: 1,
-                message: '商品名称不能超过20个字符'
+                message: 'Please enter the origin of the product'
               }]
-            })(
-              <Input type="text"/>
-            )}
-          </FormItem>
-          <FormItem label="商品类别：">
-            {getFieldDecorator('categorySecondId', {
-              rules: [{
-                required: true,
-                message: '请选择商品类别'
-              }]
-            })(
-              <CategorySelector />
-            )}
-          </FormItem>
-          <FormItem label="图片:">
-            {getFieldDecorator('image', {
-              rules: [{
-                required: true,
-                message: '请上传商品图片'
-              }]
-            })(
-              <Upload
-                name="image"
-                listType="picture"
-                className="avatar-uploader"
-                showUploadList={false}
-                beforeUpload={this.beforeUpload}
-              >
-                {imageUrl ? <img src={imageUrl} alt="" /> : uploadButton}
-              </Upload>
-            )}
-          </FormItem>
-          <FormItem label="现价:">
-            {getFieldDecorator('price', {
-              rules: [{
-                required: true,
-                message: '请输入商品价格'
-              }, {
-                max: 10,
-                message: '价格不能超过十位数'
-              }, {
-                validator: this.priceValidator
-              }]
-            })(
-              <Input type="number"/>
-            )}
-          </FormItem>
-          <FormItem label="原价:">
-            {getFieldDecorator('originalPrice', {
-              rules: [{
-                max: 10,
-                message: '价格不能超过十位数'
-              }, {
-                validator:this.priceValidator
-              }]
-            })(
-              <Input type="number"/>
-            )}
-          </FormItem>
-          <FormItem label="规格:">
-            {getFieldDecorator('spec', {
-              rules: [{
-                required: true ,
-                message: '请输入商品的规格'
-              }]
-            })(
-              <Input />
-            )}
-          </FormItem>
-          <FormItem label="原产地:">
-            {getFieldDecorator('origin', {
-              rules: [{
-                required: true,
-                message: '请输入商品的原产地'
-              }]
-            })(
-              <Input />
-            )}
-          </FormItem>
-        </Form>
-      </Modal>
-    )
-  }
-}
+            })( <Input />
+            )
+          } </FormItem> 
+          
+          </Form>
+        </Modal>
+        )
+        }
+        }

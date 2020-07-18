@@ -109,22 +109,26 @@ export default class Adv extends React.Component {
       sorter: (a, b) => a.categorySecondId- b.categorySecondId,
       sortOrder: sortedInfo.columnKey === 'categorySecondId' && sortedInfo.order
     }, {
-      title: '所属一级名称',
+      title: 'Belonging to the first-level name',
       dataIndex: 'categoryFirstName',
       key: 'categoryFirstName'
     }, {
-      title: '分类名称',
+      title: 'Category name',
       dataIndex: 'categoryName',
       key: 'categoryName'
     }, {
-      title: '图片',
+      title: 'Image',
       dataIndex: 'image',
       key: 'image',
-      render: (text, record) => (
-        <img className="advs-table-img" alt=".." src={text}/>
+      render: (text, record) => ( <img className = "advs-table-img"
+        alt = ".."
+        src = {
+          text
+        }
+        />
       )
     }, {
-      title: '操作',
+      title: 'Operation',
       key: 'action',
       render: (text, record) => (
         <span>
@@ -132,14 +136,14 @@ export default class Adv extends React.Component {
             type="primary"
             onClick={() => this.handleUpdateFormOpen(record)}
           >
-            修改
+            modify
           </Button>
           <Divider type="vertical" />
           <Button
             type="danger"
             onClick={() => this.handleDeleteOpen(record)}
           >
-            删除
+            delete
           </Button>
         </span>
       )
@@ -150,17 +154,24 @@ export default class Adv extends React.Component {
         <Panel minus>
           <Panel.Header type="light">
             <Breadcrumb>
-              <Breadcrumb.Item>主页</Breadcrumb.Item>
-              <Breadcrumb.Item>二级商品分类</Breadcrumb.Item>
-            </Breadcrumb>
-            <h2>二级商品分类</h2>
-            <p>二级商品分类展示，可以进行新增分类，修改分类，删除分类操作。</p>
-            <Divider style={{marginTop: '10px', marginBottom: '30px'}} />
-            <Button
-              type="primary"
-              onClick={this.handleAddFormOpen}
-            >
-              新增分类
+              < Breadcrumb.Item > Homepage </Breadcrumb.Item> 
+              <Breadcrumb.Item > Secondary commodity classification </Breadcrumb.Item> 
+              </Breadcrumb> 
+              <h2 > Secondary product classification </h2> 
+              <p > Secondary product classification display, you can add new classifications, modify classifications, and delete classifications. </p>
+               <Divider style = {
+                  {
+                    marginTop: '10px',
+                    marginBottom: '30px'
+                  }
+                }
+              /> 
+              <Button
+              type = "primary"
+              onClick = {
+                  this.handleAddFormOpen
+                } >
+                New category
             </Button>
           </Panel.Header>
           <Panel.Body type="light">

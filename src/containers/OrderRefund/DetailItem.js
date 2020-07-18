@@ -13,13 +13,19 @@ function DetailItem(props) {
   return (
     <Row>
       <Col span={7}>
-        编号： {detail.goodId}
+        Numbering: {
+          detail.goodId
+        }
       </Col>
       <Col span={7}>
-        名称：{detail.good.goodName}
+        name: {
+          detail.good.goodName
+        }
       </Col>
       <Col span={7}>
-        数量：{detail.count}
+       Quantity: {
+         detail.count
+       }
       </Col>
       {/* <Col span={6}></Col> */}
     </Row>

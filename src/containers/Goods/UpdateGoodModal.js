@@ -76,11 +76,11 @@ export default class UpdateGoodModal extends React.Component {
       this.props.form.resetFields()
     } catch (err) {
       if (err.response === undefined) {
-        const errorMessage = '服务器错误，请稍后再试'
+        const errorMessage = 'Server error, please try again later'
         authError(errorMessage)
-      }
-      if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
+        }
+        if (err.response.status === 401) {
+          const errorMessage = 'Your login has expired, please log in again'
         authError(errorMessage)
       }
       if (err.response.status === 400 || err.response.status === 404) {
@@ -103,94 +103,96 @@ export default class UpdateGoodModal extends React.Component {
 
     return (
       <Modal
-        visible={visible}
-        title="更新商品"
-        okText="更新"
-        cancelText="取消"
+        visible = {
+          visible
+        }
+        title = "Update product"
+        okText = "Update"
+        cancelText = "Cancel"
         onCancel={this.handleCancel}
         onOk={this.handleUpdate}
       >
         <Form layout="vertical">
-          <FormItem label="商品id:">
+          < FormItem label = "productid:" >
             {getFieldDecorator('goodId', {
               initialValue: updateForm.goodId || ''
             })(
               <Input disabled />
             )}
           </FormItem>
-          <FormItem label="商品名称:">
-            {getFieldDecorator('goodName', {
-              initialValue: updateForm.goodName || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品名称'
-              }, {
-                max: 20,
-                min: 1,
-                message: '商品名称不能超过20个字符'
+          < FormItem label = "Commodity name:" > {
+              getFieldDecorator('goodName', {
+                  initialValue: updateForm.goodName || '',
+                  rules: [{
+                        isRequired: true,
+                        message: 'Please enter the product name'
+                      }, {
+                        max: 20,
+                        min: 1,
+                        message: 'Product name cannot exceed 20 characters'
               }]
             })(
               <Input type="text" />
             )}
           </FormItem>
-          <FormItem label="商品类别：">
-            {getFieldDecorator('categorySecondId', {
-              initialValue: updateForm.categorySecondId || '',
-              rules: [{
-                required: true,
-                message: '请选择商品类别'
-              }]
+          < FormItem label = "Product category:" > {
+              getFieldDecorator('categorySecondId', {
+                  initialValue: updateForm.categorySecondId || '',
+                  rules: [{
+                    required: true,
+                    message: 'Please select product category'
+                  }]
             })(
               <CategorySelector />
             )}
           </FormItem>
-          <FormItem label="现价:">
-            {getFieldDecorator('price', {
-              initialValue: '' + updateForm.price || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品价格'
-              }, {
-                max: 10,
-                min: 1,
-                message: '商品价格不能超过10位数'
+          < FormItem label = "Current price:" > {
+              getFieldDecorator('price', {
+                  initialValue: '' + updateForm.price || '',
+                  rules: [{
+                        isRequired: true,
+                        message: 'Please enter the product price'
+                      }, {
+                        max: 10,
+                        min: 1,
+                        message: 'Product price cannot exceed 10 digits'
               }]
             })(
               <Input type="number"/>
             )}
           </FormItem>
-          <FormItem label="原价:">
-            {getFieldDecorator('originalPrice', {
-              initialValue: '' + updateForm.originalPrice || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品价格'
-              }, {
-                max: 10,
-                min: 1,
-                message: '商品原价不能超过10位数'
+          < FormItem label = "Original price:" > {
+              getFieldDecorator('originalPrice', {
+                  initialValue: '' + updateForm.originalPrice || '',
+                  rules: [{
+                        isRequired: true,
+                        message: 'Please enter the product price'
+                      }, {
+                        max: 10,
+                        min: 1,
+                        message: 'The original price of the product cannot exceed 10 digits'
               }]
             })(
               <Input type="number"/>
             )}
           </FormItem>
-          <FormItem label="规格:">
-            {getFieldDecorator('spec', {
-              initialValue: updateForm.spec || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品规格'
+          < FormItem label = "Specifications:" > {
+              getFieldDecorator('spec', {
+                  initialValue: updateForm.spec || '',
+                  rules: [{
+                        isRequired: true,
+                        message: 'Please enter product specifications'
               }]
             })(
               <Input />
             )}
           </FormItem>
-          <FormItem label="原产地:">
-            {getFieldDecorator('origin', {
-              initialValue: updateForm.origin || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品的原产地'
+          < FormItem label = "Origin:" > {
+              getFieldDecorator('origin', {
+                  initialValue: updateForm.origin || '',
+                  rules: [{
+                        isRequired: true,
+                        message: 'Please enter the origin of the product'
               }]
             })(
               <Input />

@@ -61,16 +61,16 @@ export default class AddCategoryModal extends React.Component {
         token,
         categoryName
       )
-      message.success('添加新分类成功')
+      message.success('Added new category successfully')
       this.props.fetchCategories()
       this.props.handleSubmit()
     } catch (err) {
       if (err.message === undefined) {
-        const errorMessage = '服务器出错啦，请耐心等待，麻烦很耐心的等待一年，谢谢'
+        const errorMessage = 'The server went wrong, please wait patiently, thank you'
         this.props.authError(errorMessage)
       }
       if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
+        const errorMessage = 'Your login has expired, please log in again'
         this.props.authError(errorMessage)
       }
       // 添加不成功
@@ -94,22 +94,22 @@ export default class AddCategoryModal extends React.Component {
     return (
       <Modal
         visible={visible}
-        title="新增分类"
-        okText="保存"
-        cancelText="取消"
+        title = "New category"
+        okText = "Save"
+        cancelText = "Cancel"
         onCancel={handleCancel}
         onOk={this.handleSubmit}
       >
         <Form layout="vertical">
-          <FormItem label="分类名称">
+          < FormItem label = "Category Name" >
             {getFieldDecorator('categoryName', {
               rules: [{
-                required: true,
-                message: '请输入分类名称'
-              }, {
-                max: 10,
-                min: 1,
-                message: '商品名称不能超过10个字符'
+             required: true,
+               message: 'Please enter the category name'
+             }, {
+               max: 10,
+               min: 1,
+               message: 'Product name cannot exceed 10 characters'
               }]
             })(
               <Input type="text" />

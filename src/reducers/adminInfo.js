@@ -10,6 +10,7 @@ const initialState = {
   admins: []
 }
 
+
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case LOAD_ADMIN_INFO:
@@ -30,3 +31,4 @@ export default (state = initialState, action = {}) => {
       return state
   }
 }
+

@@ -42,16 +42,16 @@ export default class DeleteCategoryModal extends React.Component {
 
     try {
       await categoryFirstService.remove(adminId, token, categoryFirstId)
-      message.success("删除成功")
+      message.success("successfully deleted")
       this.props.fetchCategories()
       this.props.handleSubmit()
     } catch (err) {
       if (err.message === undefined) {
-        const errorMessage = '服务器出错啦，请耐心等待，麻烦很耐心的等待一年，谢谢'
+        const errorMessage = 'The server went wrong, please wait patiently,thank you'
         this.props.authError(errorMessage)
       }
       if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
+        const errorMessage = 'Your login has expired, please log in again'
         this.props.authError(errorMessage)
       }
       // 删除不成功
@@ -73,17 +73,21 @@ export default class DeleteCategoryModal extends React.Component {
 
     return (
       <Modal
-        title={`删除分类`}
-        visible={this.props.visible}
-        okText="确认"
-        cancelText="取消"
+       title = {
+         `Delete Category`
+       }
+       visible = {
+         this.props.visible
+       }
+       okText = "Confirm"
+       cancelText = "Cancel"
         onOk={this.handleConfirm}
         onCancel={this.props.handleCancel}
       >
         <p>
           {
             categoryName ? (
-              '确认要删除分类信息：' + categoryName
+             'Confirm to delete classification information:' + categoryName
             ) : ''
           }
         </p>

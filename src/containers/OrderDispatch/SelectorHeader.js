@@ -81,23 +81,28 @@ export default class SelectorHeader extends React.Component {
     return (
       <Panel.Header type="light">
         <Breadcrumb>
-          <Breadcrumb.Item>主页</Breadcrumb.Item>
-          <Breadcrumb.Item>订单管理</Breadcrumb.Item>
-          <Breadcrumb.Item>订单配送</Breadcrumb.Item>
+          < Breadcrumb.Item > Home page </Breadcrumb.Item>
+          < Breadcrumb.Item > Order management </Breadcrumb.Item>
+           < Breadcrumb.Item > Order delivery </Breadcrumb.Item>
         </Breadcrumb>
         <h2>
-          订单配送
+         Order delivery
 
           <RadioGroup onChange={this.handleStatusChange} defaultValue={status} style={{float: 'right'}}>
             <Badge dot={wait > 0}>
-              <RadioButton value={ORDER_WAIT}>待发货</RadioButton>
+              < RadioButton value = {
+                ORDER_WAIT
+              } > To be shipped </RadioButton>
             </Badge>
             <Badge dot={dispatching > 0}>
-              <RadioButton value={ORDER_DISPATCHING}>配送中</RadioButton>
+              < RadioButton value = {
+                ORDER_DISPATCHING
+              } > Shipping </RadioButton>
             </Badge>
           </RadioGroup>
         </h2>
-        <p>管理订单的配送，查看待发货和配送中订单，可以对订单进行发货处理和确认送达处理。</p>
+        < p > Manage the delivery of orders, view pending and 
+        in -delivery orders, and process orders and confirm delivery. </p>
         <Divider style={{marginTop: '10px', marginBottom: '30px'}} />
         <Form className="form-search" onSubmit={this.handleSubmit}>
           <Row gutter={24}>
@@ -111,7 +116,7 @@ export default class SelectorHeader extends React.Component {
             <Col span={5}>
               <FormItem
                 className="form-flex-wrapper"
-                label="用户名称"
+                label = "User name"
               >
                 {getFieldDecorator('userName', {
                   initialValue: ""
@@ -121,7 +126,7 @@ export default class SelectorHeader extends React.Component {
               </FormItem>
             </Col>
             <Col span={7}>
-              <FormItem label="时间:">
+              < FormItem label = "time:" >
                 {getFieldDecorator('createTime', {
                   initialValue: ''
                 })(
@@ -134,10 +139,14 @@ export default class SelectorHeader extends React.Component {
                 type="primary"
                 htmlType="submit"
               >
-                搜索
+               search
+               for
               </Button>
               <Divider type="vertical"/>
-              <Button type="dashed" onClick={this.handleReset}>重置</Button>
+              < Button type = "dashed"
+              onClick = {
+                this.handleReset
+              } > Reset </Button>
             </Col>
           </Row>
         </Form>

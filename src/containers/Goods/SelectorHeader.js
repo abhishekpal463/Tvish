@@ -69,11 +69,10 @@ export default class SelectorHeader extends React.Component {
     return (
       <Panel.Header style={{backgroundColor: '#fff'}}>
         <Breadcrumb>
-          <Breadcrumb.Item>主页</Breadcrumb.Item>
-          <Breadcrumb.Item>商品列表</Breadcrumb.Item>
-        </Breadcrumb>
-        <h2>商品列表</h2>
-        <p>仓库商品信息展示，可以进行新增商品，编辑商品，商品入库，商品出库操作</p>
+          < Breadcrumb.Item > Homepage </Breadcrumb.Item> 
+          </Breadcrumb> <h2 > Product list </h2> < p > Warehouse product information display, you can
+             add new products, edit products, store products, and
+          export products. </p>
         <Divider style={{marginTop: '10px', marginBottom: '30px'}} />
         <Form className="form-search" onSubmit={this.handleSubmit}>
           <Row gutter={24}>
@@ -86,8 +85,8 @@ export default class SelectorHeader extends React.Component {
             </Col>
             <Col span={6}>
               <FormItem
-                className="form-flex-wrapper"
-                label="商品名称"
+                className = "form-flex-wrapper"
+                label = "Product name"
               >
                 {getFieldDecorator('goodName', {
                   initialValue: ""
@@ -97,7 +96,7 @@ export default class SelectorHeader extends React.Component {
               </FormItem>
             </Col>
             <Col span={5}>
-              <FormItem label="分类:">
+              < FormItem label = "Classification:" >
                 {getFieldDecorator('categorySecondId', {
                   initialValue: 'all'
                 })(
@@ -109,16 +108,17 @@ export default class SelectorHeader extends React.Component {
               </FormItem>
             </Col>
             <Col span={4}>
-              <FormItem label="商品状态:">
+              < FormItem label = "Product status:" >
                 {getFieldDecorator('status', {
                   initialValue: 'all'
                 })(
                   <Select
                     onChange={this.handleStatusChange}
                   >
-                    <Option value="all">全部</Option>
-                    <Option value="1">在售</Option>
-                    <Option value="0">下架</Option>
+                   < Option value = "all" > All </Option>
+                    <Option value = "1" > On sale </Option> 
+                     <Option value = "0" > Off the shelf
+                      </Option>
                   </Select>
                 )}
               </FormItem>
@@ -128,10 +128,14 @@ export default class SelectorHeader extends React.Component {
                 type="primary"
                 htmlType="submit"
               >
-                搜索
+                search
+                for
               </Button>
               <Divider type="vertical"/>
-              <Button type="dashed" onClick={this.handleReset}>重置</Button>
+              < Button type = "dashed"
+              onClick = {
+                this.handleReset
+              } > Reset </Button>
             </Col>
           </Row>
         </Form>

@@ -72,16 +72,17 @@ export default class DecreaseInventory extends React.Component {
         good.goodId,
         -decreaseNumber
       )
-      message.success("出库成功")
-      handleSubmit()
-      this.props.form.resetFields()
-    } catch (err) {
-      if (err.response === undefined) {
-        const errorMessage = '服务器错误，请稍后再试'
-        authError(errorMessage)
-      }
-      if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
+     message.success("Exit successfully")
+     handleSubmit()
+     this.props.form.resetFields()
+     }
+     catch (err) {
+       if (err.response === undefined) {
+         const errorMessage = 'Server error, please try again later'
+         authError(errorMessage)
+       }
+       if (err.response.status === 401) {
+         const errorMessage = 'Your login has expired, please log in again'
         authError(errorMessage)
       }
       if (err.response.status === 400 || err.response.status === 404) {
@@ -103,36 +104,43 @@ export default class DecreaseInventory extends React.Component {
 
     return (
       <Modal
-        visible={visible}
-        title={`${good.goodName} 出库`}
-        okText="出库"
-        cancelText="取消"
-        onCancel={this.handleCancel}
-        onOk={this.handleConfirm}
-      >
-        <Form layout="vertical">
-          <FormItem label="库存:">
+        visible = {
+          visible
+        }
+        title = {
+          `${good.goodName} Out of library`
+        }
+        okText = "out of library"
+        cancelText = "Cancel"
+        onCancel = {
+          this.handleCancel
+        }
+        onOk = {
+            this.handleConfirm
+          } >
+          < Form layout = "vertical" >
+          <FormItem label = "Inventory:" >
             {getFieldDecorator('price', {
               initialValue: '' + good.price || '',
               rules: [{
-                isRequired: true,
-                message: '请输入商品价格'
-              }, {
-                max: 10,
-                min: 1,
-                message: '商品价格不能超过10位数'
+               isRequired: true,
+                 message: 'Please enter the product price'
+               }, {
+                 max: 10,
+                 min: 1,
+                 message: 'Product price cannot exceed 10 digits'
               }]
             })(
               <Input type="number" disabled/>
             )}
           </FormItem>
-          <FormItem label="出库数量:">
-            {getFieldDecorator('decreaseNumber', {
-              initialValue: 0,
-              rules: [{
-                isRequired: true,
-                message: '请输入出库储量'
-              }, {
+          < FormItem label = "Number of outbound:" > {
+              getFieldDecorator('decreaseNumber', {
+                  initialValue: 0,
+                  rules: [{
+                        isRequired: true,
+                        message: 'Please enter the outbound reserves'
+                      }, {
                 max: 10,
                 min: 1,
                 message: ''
